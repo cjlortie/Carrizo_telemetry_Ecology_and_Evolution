@@ -282,31 +282,24 @@ mcp.data <- read_csv("data/mcp.2016.overlap.csv")
 mcp.data <- mcp.data %>%
   filter(gender != "uk")
 
-#gender
-m <- glm(area ~ gender, data = mcp.data)
-m
-anova(m, test = "Chisq")
+library(skimr)
+skim(mcp.data)
 
-mcp.data.m <- mcp.data %>% 
-  filter(gender == "m")
+#mode
+getmode <- function(v) {
+   uniqv <- unique(v)
+   uniqv[which.max(tabulate(match(v, uniqv)))]
+}
 
-mcp.data.f <- mcp.data %>% 
-  filter(gender == "f")
+getmode(mcp.data$mcp.overlap)
+getmode(mcp.data$polygons.overlapping)
+
 
 #extent of overlap
 #all individuals
 t.test(mcp.data$polygons.overlapping, mu = 0)
 t.test(mcp.data$polygons.overlapping, mu = 1)
 t.test(mcp.data$polygons.overlapping, mu = 2)
-
-#by gender
-t.test(mcp.data.m$polygons.overlapping, mu = 0)
-t.test(mcp.data.m$polygons.overlapping, mu = 1)
-t.test(mcp.data.m$polygons.overlapping, mu = 2)
-
-t.test(mcp.data.f$polygons.overlapping, mu = 0)
-t.test(mcp.data.f$polygons.overlapping, mu = 1)
-t.test(mcp.data.f$polygons.overlapping, mu = 2)
 
 #likelihood
 m <- glm(mcp.overlap~gender + area, family = binomial, data = mcp.data)
