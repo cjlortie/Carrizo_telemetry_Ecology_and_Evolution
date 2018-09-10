@@ -177,6 +177,27 @@ ggplot(pop.data, aes(mesohabitat, n, fill = behavior)) +
   xlab("mesohabitat") +
   coord_flip()  
 
+#other options for publication
+ggplot(pop.data, aes(mesohabitat, n, fill = behavior)) +
+  geom_boxplot() +
+  facet_grid(~time.class) + 
+  scale_fill_brewer(palette = "Paired") +
+  xlab("mesohabitat") +
+  coord_flip()  
+
+ggplot(pop.data, aes(mesohabitat, n, fill = behavior)) +
+  geom_boxplot() +
+  facet_grid(~time.class) + 
+  scale_fill_brewer(palette = "Greys") +
+  xlab("mesohabitat") +
+  coord_flip()  
+
+ggplot(pop.data, aes(mesohabitat, n)) +
+  geom_boxplot() +
+  facet_grid(behavior~time.class) + 
+  xlab("mesohabitat") +
+  coord_flip()  
+
 ```
 
 ###Habitat: pop-data structure models
